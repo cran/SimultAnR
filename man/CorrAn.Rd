@@ -6,14 +6,17 @@
 the selected data.
 }
 \usage{
-CorrAn(data, sr = NA, sc = NA, nd = 2, dp = 2)
+CorrAn(data, sr = NA, sc = NA, nd = 2, dp = 2, oar = 1, oac = 1, multiple = 0)
 }
 \arguments{
-  \item{data }{Data set                         }
-  \item{sr   }{Indices of supplementary rows    }
-  \item{sc   }{Indices of supplementary columns }
-  \item{nd   }{Number of dimensions in results  }
-  \item{dp   }{Number of digits in results      }
+  \item{data    }{Data set                         }
+  \item{sr      }{Indices of supplementary rows    }
+  \item{sc      }{Indices of supplementary columns }
+  \item{nd      }{Number of dimensions in results  }
+  \item{dp      }{Number of digits in results      }
+  \item{oar     }{Output for active rows (1 = yes, 0 = no)}
+  \item{oac     }{Output for active columns (1 = yes, 0 = no)}
+  \item{multiple}{Option for Multiple Simultaneous Analysis (1 = yes, 0 = no)}
 }
 \details{
 The options \code{sr} and \code{sc} allow supplementary rows and columns to be 
@@ -64,8 +67,8 @@ Lebart, L; Piron, M., Morineau, A. (2006).
 }
 
 \seealso{
-\code{\link{CorrAnGraph}}, 
-\code{\link{CorrAnSummary}}  
+\code{\link{plot.CorrAn}}, 
+\code{\link{summary.CorrAn}}  
 }
 \examples{
 
@@ -75,8 +78,8 @@ dataCA <- shoplifting[1:13, 1:9]
 ### CA without supplementary elements
 CorrAn(data=dataCA)
 
-### CA with supplementary rows/columns
-CorrAn(data=dataCA, sr=13, sc=9)
+### CA with supplementary rows and without output for columns
+CorrAn(data=dataCA, sr=13, oac=0)
 
 }
 \keyword{ multivariate }

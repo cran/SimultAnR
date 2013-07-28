@@ -1,22 +1,26 @@
-\name{SimultAnR-package}
-\alias{SimultAnR-package}
-\alias{SimultAnR}
+\name{SimultAnR_1.1-package}
+\alias{SimultAnR_1.1-package}
+\alias{SimultAnR_1.1}
 \docType{package}
 \title{Correspondence and Simultaneous Analysis
 } 
 \description{This package performs classical correspondence analysis (CA) and 
      simultaneous analysis (SA). Simultaneous analysis is a factorial 
      methodology developed for the joint treatment of a set of several 
-     contingency tables. In this package, functions for computation, summaries 
+     contingency tables. In SA tables having the same rows, are concatenated row-wise.
+     In this version of the package a multiple option have been included for the simultaneous analysis
+     of tables having the same columns, concatenated column-wise.
+     This way, a MSA allows to perform the analysis of an indicator matrix where the rows represent individuals. 
+     In this package, functions for computation, summaries 
      and graphical visualization in two dimensions are provided, including 
-     options to display partial rows and supplementary points.
+     options to display partial and supplementary points.
 }
 \details{
 \tabular{ll}{
-Package: \tab SimultAnR\cr
+Package: \tab SimultAnR_1.1\cr
 Type: \tab Package\cr
-Version: \tab 0.1\cr
-Date: \tab 2010-12-14\cr
+Version: \tab 1.0\cr
+Date: \tab 2013-07-28\cr
 License: \tab GPL (>=2) \cr
 LazyLoad: \tab yes\cr
 LazyData: \tab yes\cr
@@ -60,15 +64,21 @@ Zarraga, A. & Goitisolo, B. (2009).
    Two methods for the joint study of contingency tables.
    \emph{Computational Statistics and Data Analysis},
    \bold{53}, 3171--3182.
+
+Zarraga, A. & Goitisolo, B. (2011).
+   Simultaneous Analysis in S-PLUS: The SimultAn Package.
+   \emph{Journal of Statistical Software},
+   \bold{70 (11)}, 1--22.
+   
 }
 \keyword{ package }
 \seealso{
 \code{\link{CorrAn}}, 
-\code{\link{CorrAnSummary}}, 
-\code{\link{CorrAnGraph}}, 
+\code{\link{summary.CorrAn}}, 
+\code{\link{plot.CorrAn}}, 
 \code{\link{SimAn}}, 
-\code{\link{SimAnSummary}}, 
-\code{\link{SimAnGraph}},    
+\code{\link{summary.SimAn}}, 
+\code{\link{plot.SimAn}},    
 
 \code{\link{shoplifting}}, 
 \code{\link{traffic}}.
@@ -95,15 +105,18 @@ CorrAn.out <- CorrAn(data=dataCA, sr=13)
 CorrAn.out <- CorrAn(data=dataCA, sc=9)
 CorrAn.out <- CorrAn(data=dataCA, sr=13, sc=9)
 
+### CA with supplementary columns and without output for rows
+CorrAn.out <- CorrAn(data = dataCA, sc=9, oac=0, oar = 0)
+
 ### Summary
-CorrAnSummary(CorrAn.out)
+summary(CorrAn.out)
 
 ### Graphs on screen
-\donttest{CorrAnGraph(CorrAn.out, s1=1, s2=2, screen=TRUE)}
+\donttest{plot(CorrAn.out, s1=1, s2=2, screen=TRUE)}
 
 ### Graphs on a pdf file
 pdf('CAGr.pdf', paper="a4r", width=12, height=9)
-CorrAnGraph(CorrAn.out, s1=1, s2=2, screen=FALSE)
+plot(CorrAn.out, s1=1, s2=2, screen=FALSE)
 dev.off()
 
 ###other
@@ -131,16 +144,21 @@ SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:8,10:17), weight= 2,
 SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:8,10:17), weight= 2,
    nameg=c("M", "F"), sr= 13, sc=c(9,18))
                             
+## Multiple SA with supplementary rows and without output for columns)
+SimAn.out <- SimAn(data = t(dataSA), G = 2, arg = list(1:9, 10:18), 
+   weight = 2, nameg=c("M", "F"), sr = 11, oac=0, multiple = 1)
+
+
 ### Summary
-SimAnSummary(SimAn.out)
+summary(SimAn.out)
                                                         
 ### Graphs on screen
-\donttest{SimAnGraph(SimAn.out)}
+\donttest{plot(SimAn.out)}
 
 
 ### Graphs on a pdf file
 pdf('SAGr.pdf', paper="a4r", width=12, height=9)
-SimAnGraph(SimAn.out, s1=1, s2=2, screen=FALSE)
+plot(SimAn.out, s1=1, s2=2, screen=FALSE)
 dev.off()
 
 ###other

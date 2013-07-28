@@ -1,17 +1,20 @@
-\name{CorrAnSummary}
-\alias{CorrAnSummary}
+\name{summary.CorrAn}
+\alias{summary.CorrAn}
 \title{Summary of Correspondence Analysis
 }
 \description{This function summarizes the results of \code{CorrAn}.
 }
 \usage{
-CorrAnSummary(input)
+\method{summary}{CorrAn}(object, oar = 1, oac = 1, ...)
 }
 \arguments{
-  \item{input}{The output of the correspondence analysis }
+  \item{object}{The output of the correspondence analysis (class 'CorrAn')}
+  \item{oar   }{Output for active rows (1 = yes, 0 = no)}
+  \item{oac   }{Output for active columns (1 = yes, 0 = no)}
+  \item{...   }{Further arguments passed to or from other methods}
 }
 \details{
-The function \code{CorrAnSummary} gives the detailed numerical results 
+The function \code{summary.CorrAn} gives the detailed numerical results 
 of the \code{CorrAn} function corresponding to the total inertia, as a 
 measure of the total variance of the data table, to the 
 eigenvalues or principal inertias as well as to the  
@@ -38,7 +41,7 @@ correlations.
   \item{Output for supplementary rows }{
         Masses, chi-squared distances of points to their average, projections 
         of points on each dimension and squared correlations}
-  \item{Output for supplementaruy columns }{
+  \item{Output for supplementary columns }{
         Masses, chi-squared distances of points to their average, projections 
         of points on each dimension and squared correlations}
 }
@@ -56,7 +59,7 @@ Lebart, L; Piron, M., Morineau, A. (2006).
 
 \seealso{
 \code{\link{CorrAn}}, 
-\code{\link{CorrAnGraph}}.
+\code{\link{plot.CorrAn}}.
 }
 \examples{
 data(shoplifting)
@@ -65,8 +68,8 @@ dataCA <- shoplifting[, 1:9]
 ### CA without supplementary elements
 CorrAn.out <- CorrAn(data=dataCA)
 
-### Summary
-CorrAnSummary(CorrAn.out)
+### Summary without output for rows
+summary(CorrAn.out, oar=0)
 }
 \keyword{ multivariate }
 \keyword{ correspondence analysis }

@@ -1,17 +1,21 @@
-\name{SimAnGraph}
-\alias{SimAnGraph}
+\name{plot.SimAn}
+\alias{plot.SimAn}
 \title{Graphs of Simultaneous Analysis
 }
 \description{Graphical representation of simultaneous analysis.
 }
 \usage{
-SimAnGraph(input, s1 = 1, s2 = 2, screen = TRUE)
+\method{plot}{SimAn}(x, s1 = 1, s2 = 2, screen = TRUE, oar = 1, oac = 1, ...)
 }
 \arguments{
-  \item{input  }{The output of the simultaneous analysis}
+  \item{x      }{The output of the simultaneous analysis (class 'SimAn')}
   \item{s1     }{Dimension to plot on horizontal axis}
   \item{s2     }{Dimension to plot on vertical axis}
-  \item{screen }{TRUE (all the graphs on screen) or FALSE (graphs in a file)}
+  \item{screen }{TRUE (all the graphs on screen) or FALSE (graphs in a file)\cr 
+                 FALSE for S-plus}
+  \item{oar    }{Output for active rows (1 = yes, 0 = no)}
+  \item{oac    }{Output for active columns (1 = yes, 0 = no)}
+  \item{...    }{Further arguments passed to or from other methods}
 }
 \details{
 The parameters \code{s1 = 1} and \code{s2 = 2} (by default) indicate that the 
@@ -23,14 +27,14 @@ must be at least 3.
 
 A large number of elements can take part in the SA of a set of tables depending 
 on the number of tables and on the dimensions of the tables. 
-In order to facilitate interpretation,  the \code{SimAnGraph} function gives 
+In order to facilitate interpretation,  the \code{plot.SimAn} function gives 
 several graphical outputs for active and supplementary  points (if any) 
 including the ones corresponding to the separate CA of each table.
 
 Each table is identified with a different color and the columns and partial 
 rows of each table are in the same color and have the same symbol.
 Two additional graphs, one for the projections of the tables and one for the 
-relations between factors of CA and SA are also provided by \code{SimAnGraph}.
+relations between factors of CA and SA are also provided by \code{plot.SimAn}.
 }
 \references{
 Goitisolo, B. (2002).
@@ -66,7 +70,7 @@ Zarraga, A. & Goitisolo, B. (2009).
 
 \seealso{
 \code{\link{SimAn}}, 
-\code{\link{SimAnSummary}}.
+\code{\link{summary.SimAn}}.
 }
 \examples{
 data(shoplifting)
@@ -75,12 +79,12 @@ dataSA <- shoplifting
 SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:9,10:18), weight= 2,
    nameg=c("M", "F"))
                                                        
-### Graphs on screen
-\donttest{SimAnGraph(SimAn.out)}
+### Graphs on screen without columns
+\donttest{plot(SimAn.out, oac=0)}
 
 ### Graph on a pdf file
 pdf('SAGr.pdf',paper="a4r",width=12,height=9)
-SimAnGraph(SimAn.out, s1=1, s2=2, screen=FALSE)
+plot(SimAn.out, s1=1, s2=2, screen=FALSE)
 dev.off()
 }
 \keyword{ multivariate }

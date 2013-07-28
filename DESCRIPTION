@@ -1,20 +1,27 @@
 Package: SimultAnR
 Type: Package
 Title: Correspondence and Simultaneous Analysis
-Version: 0.2
-Date: 2010-12-14
+Version: 1.1
+Date: 2013-07-28
 Author: Amaya Zarraga, Beatriz Goitisolo
 Maintainer: Beatriz Goitisolo <beatriz.goitisolo@ehu.es>
-Description: This package performs classical correspondence analysis
-        and simultaneous analysis. Simultaneous analysis is a factorial
-        methodology developed for the joint treatment of a set of
-        several contingency tables. In this package, functions for
-        computation, summaries and graphical visualization in two
-        dimensions are provided, including options to display partial
-        rows and supplementary points.
+Description: This package performs classical correspondence analysis (CA) and
+     simultaneous analysis (SA). Simultaneous analysis is a factorial
+     methodology developed for the joint treatment of a set of several
+     contingency tables. In SA tables having the same rows, are concatenated 
+     row-wise.
+     In this version of the package a multiple option have been included for 
+     the simultaneous analysis
+     of tables having the same columns, concatenated column-wise.
+     This way, a MSA allows to perform the analysis of an indicator matrix 
+     where the rows represent individuals.
+     In this package, functions for computation, summaries
+     and graphical visualization in two dimensions are provided, including
+     options to display partial and supplementary points.
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: yes
-Packaged: 2012-10-29 08:57:41 UTC; ripley
+Packaged: 2013-07-29 15:01:28 UTC; Beatriz
+NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2012-10-29 08:57:41
+Date/Publication: 2013-07-29 21:30:05

@@ -7,23 +7,33 @@ Simultaneous analysis is a factorial method developed for the joint treatment
 of a set of several data tables, especially frequency tables whose row margins 
 are different, for example when the tables are from different samples or 
 different time points, without modifying the internal structure of each table. 
-In the data tables  rows must refer to the same entities, but columns may be 
+In the data tables rows must refer to the same entities, but columns may be 
 different.
+With the multiple option tables having the same columns are concatenated 
+column-wise.
+This way, a MSA allows to perform the analysis of an indicator matrix 
+where the rows represent individuals. 
 }
 \usage{
 SimAn(data, G, acg, weight = 2, nameg = NA, sr = NA, sc = NA, 
-nd = 2, dp = 2)
+nd = 2, dp = 2, oar = 1, oac = 1, multiple = 0, arg)
 }
 \arguments{
   \item{data    }{Data set                                           }                                   
   \item{G       }{Number of tables to be jointly analyzed            }                                   
-  \item{acg     }{List of number of the active columns for each table}
+  \item{acg     }{List of number of the active columns for each table
+                  (if multiple = 0)}
   \item{weight  }{Weighting on each table                            }
   \item{nameg   }{Prefix for identifying partial rows and tables     }
   \item{sr      }{Indices of supplementary rows                      }
   \item{sc      }{Indices of supplementary columns                   }
   \item{nd      }{Number of dimensions in results                    }
   \item{dp      }{Number of digits in results                        }
+  \item{oar     }{Output for active rows (1 = yes, 0 = no)           }
+  \item{oac     }{Output for active columns (1 = yes, 0 = no)        }
+  \item{multiple}{Multiple Simultaneous Analysis (1 = yes, 0 = no)   }
+  \item{arg     }{List of number of the active rows for each table   
+                 (if multiple = 1)}
 }
 \details{
 The parameter \code{weight} refers to the weighting of each table included in 
@@ -51,38 +61,70 @@ be identified.
   \item{totalin }{Total inertia                                               }
   \item{resin   }{Results of inertia                                          }
   \item{resi    }{Results of active rows                                      }
-  \item{resig   }{Results of partial rows                                     }
   \item{resj    }{Results of active columns                                   }
+  \item{resig   }{Results of partial rows
+                  (if multiple = 0) }
+  \item{resjg   }{Results of partial columns 
+                  (if multiple = 1)                }
   \item{Fsg     }{Projections of each table                                   }
   \item{ctrg    }{Contribution of each table to the axes                      }
-  \item{riig    }{Relation between the overall rows and the partial rows      }
+  \item{riig    }{Relation between the overall rows and the partial rows  
+                  (if multiple = 0)                                           }
+  \item{rjjg    }{Relation between the overall rows and the partial columns
+                 (if multiple = 1)                                            }
   \item{RCACA   }{Relation between separate CA axes                           }
   \item{RCASA   }{Relation between CA axes and SA axes                        }
-  \item{Fsi     }{Projections of active rows                                  }
-  \item{Fsig    }{Projections of partial rows                                 }
+  \item{Fs      }{Projections of active rows                                  }
   \item{Gs      }{Projections of active columns                               }
-  \item{allFs   }{Projections of rows and partial rows in an array format     }
-  \item{allGs   }{Projections of columns in an array format                   }
-  \item{I       }{Number of active rows                                       }
-  \item{maxJg   }{Maximum number of columns for a table                       }
+  \item{Fsig    }{Projections of partial rows                                
+                  (if multiple = 0)                                           }
+  \item{Gsjg    }{Projections of partial columns                                 
+                  (if multiple = 1)                                           }
+  \item{allFs   }{Projections of rows and partial rows (if multiple = 0) 
+                   in an array format                                         } 
+  \item{allGs   }{Projections of columns and partial columns (if multiple = 1)
+                   in an array format                                         }
+  \item{I       }{Number of active rows                                       
+                  (if multiple = 0)                                           }
+  \item{J       }{Number of active columns                                       
+                  (if multiple = 1)                                           }
+  \item{maxJg   }{Maximum number of columns for a table                       
+                  (if multiple = 0)                                           }
+  \item{maxIg   }{Maximum number of rows for a table                            
+                  (if multiple = 1)                                           }
   \item{G       }{Number of tables                                            }
-  \item{namei   }{Names of active rows                                        }
-  \item{nameg   }{Prefix for identifying partial rows, tables, etc            }
+  \item{namei   }{Names of active rows                                        
+                  (if multiple = 0)                                           }
+  \item{namej   }{Names of active columns                                        
+                  (if multiple = 1)                                           }
+  \item{nameg   }{Prefix for identifying partial points, tables, etc          }
   \item{resisr  }{Results of supplementary rows                               }
-  \item{resigsr }{Results of partial supplementary rows                       }
-  \item{Fsisr   }{Projections of supplementary rows                           }
-  \item{Fsigsr  }{Projections of partial supplementary rows                   }
-  \item{allFssr }{Projections of rows and partial supplementary rows in an 
-                  array format                                                }
-  \item{Isr     }{Number of supplementary rows                                }
-  \item{nameisr }{Names of supplementary rows                                 }
-  \item{resjsc  }{Results of supplementary columns                            }
+  \item{resjsc  }{Results of supplementary columns                            }   
+  \item{resigsr }{Results of partial supplementary rows                       
+                  (if multiple = 0)                                           }
+  \item{resjgsc }{Results of partial supplementary columns                       
+                  (if multiple = 1)                                           }
+  \item{Fssr    }{Projections of supplementary rows                           }
   \item{Gssc    }{Projections of supplementary columns                        }
-  \item{allGssc }{Projections of supplementary columns in an array format     }
-  \item{Jsc     }{Number of supplementary columns                             }
-  \item{namejsc }{Names of supplementary columns                              }
+  \item{Fsigsr  }{Projections of partial supplementary rows                   
+                  (if multiple = 0)                                           }
+  \item{Gsjgsc  }{Projections of partial supplementary columns                   
+                  (if multiple = 1)                                           }
+  \item{allFssr }{Projections of supplementary rows and partial supplementary 
+                  rows (if multiple = 0)  in an array format                  }                 
+  \item{allGssc }{Projections of supplementary columns and partial 
+                  supplementary columns (if multiple = 1) in an array format  }    
+  \item{Isr     }{Number of supplementary rows                                
+                  (if multiple = 0)                                           }
+  \item{Jsc     }{Number of supplementary columns                             
+                  (if multiple = 1)                                           }
+  \item{nameisr }{Names of supplementary rows                                 
+                  (if multiple = 0)                                           }
+  \item{namejsc }{Names of supplementary columns                              
+                  (if multiple = 1)                                           }
   \item{CAres   }{Results of CA of each table to be used in Summary and Graph 
                   functions }
+  \item{multiple}{Value of option multiple}
 }
 
 \references{
@@ -113,6 +155,11 @@ Zarraga, A. & Goitisolo, B. (2009).
    Two methods for the joint study of contingency tables.
    \emph{Computational Statistics and Data Analysis},
    \bold{53}, 3171--3182.
+
+Zarraga, A. & Goitisolo, B. (2011).
+   Simultaneous Analysis in S-PLUS: The SimultAn Package.
+   \emph{Journal of Statistical Software},
+   \bold{70 (11)}, 1--22.
 }
 
 \author{Amaya Zarraga, Beatriz Goitisolo
@@ -120,32 +167,31 @@ Zarraga, A. & Goitisolo, B. (2009).
 
 
 \seealso{
-\code{\link{SimAnSummary}}, 
-\code{\link{SimAnGraph}}. 
+\code{\link{summary.SimAn}}, 
+\code{\link{plot.SimAn}}. 
 }
 \examples{
 data(shoplifting)
 dataSA <- shoplifting
 
+
 ### SA without supplementary elements
 SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:9,10:18), weight= 2, 
    nameg=c("M", "F"))
 
-### SA with supplementary rows/columns
-SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:8,10:17), weight= 2,
-   nameg=c("M", "F"), sr= 13)
-SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:8,10:17), weight= 2,
-   nameg=c("M", "F"), sr= 13, sc=c(9,18))
+### Multiple SA without output for columns
+SimAn.out <- SimAn(data=t(dataSA), G=2, weight= 2, 
+   nameg=c("M", "F"), oac=0, multiple=1, arg=list(1:9,10:18))
 
 ### Summary
-SimAnSummary(SimAn.out)
+summary(SimAn.out)
 
 ### Graphs on screen
-\donttest{SimAnGraph(SimAn.out)}
+\donttest{plot(SimAn.out)}
 
-### Graphs on a pdf file
+### Graphs on a pdf file (without columns)
 pdf('SAGr.pdf', paper="a4r", width=12, height=9)
-SimAnGraph(SimAn.out, s1=1, s2=2, screen=FALSE)
+plot(SimAn.out, s1=1, s2=2, screen=FALSE, oac=0)
 dev.off()
 }
 \keyword{ multivariate }

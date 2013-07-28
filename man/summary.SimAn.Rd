@@ -1,17 +1,20 @@
-\name{SimAnSummary}
-\alias{SimAnSummary}
+\name{summary.SimAn}
+\alias{summary.SimAn}
 \title{Summary of Simultaneous Analysis
 }
 \description{This function summarizes the results of \code{SimAn}.
 }
 \usage{
-SimAnSummary(input)
+\method{summary}{SimAn}(object, oar = 1, oac = 1, ...)
 }
 \arguments{
-  \item{input }{The output of the simultaneous analysis }
+  \item{object}{The output of the simultaneous analysis (class 'SimAn')}
+  \item{oar   }{Output for active rows (1 = yes, 0 = no)}
+  \item{oac   }{Output for active columns (1 = yes, 0 = no)}
+  \item{...   }{Further arguments passed to or from other methods}
 }
 \details{
-The function \code{SimAnSummary} gives the detailed numerical results of the 
+The function \code{summary.SimAn} gives the detailed numerical results of the 
 \code{SimAn} function. 
 
 In its first stage simultaneous analysis performs a simple correspondence 
@@ -30,7 +33,7 @@ correlations.
 For partial rows and for supplementary elements the same results are listed 
 except for contributions of the points to the dimensions.
 
-The output of \code{SimAnSummary} also contains the relations between overall 
+The output of \code{summary.SimAn} also contains the relations between overall 
 rows and partial rows, the relations between the factors of the CA of the 
 different tables, the relations between the factors of the SA and the factors 
 of the separate CA of the different tables, the projections of the tables and 
@@ -69,13 +72,22 @@ Results of simultaneous analysis of the set of tables:
      points on each dimension, contributions and squared correlations         }
   \item{   Output for partial rows }{
      Masses, chi-squared distances of points to their average, projections of 
-     points on each dimension and squared correlations                        }
+     points on each dimension and squared correlations                        
+                  (if multiple = 0)                                           }    
+  \item{   Output for partial columns }{
+     Masses, chi-squared distances of points to their average, projections of 
+     points on each dimension and squared correlations                        
+                  (if multiple = 1)                                           }
   \item{   Projections of tables}{
      Projections of each table on each dimension                              }
   \item{   Contributions of tables to SA}{
      Contributions of each table to the dimensions                            }
   \item{   Relation between overall and partial rows}{
-     Relation between overall and partial rows                                }
+     Relation between overall and partial rows                                
+                  (if multiple = 0)                                           }
+  \item{   Relation between overall and partial columns}{
+     Relation between overall and partial columns                                
+                  (if multiple = 1)                                           }
   \item{   Relation between factors of separate CA}{
      Relation between factors of separate correspondence analysis             }
   \item{   Relation between factors of CA and SA}{
@@ -84,12 +96,17 @@ Results of simultaneous analysis of the set of tables:
   \item{   Output for supplementary rows }{
      Masses, chi-squared distances of points to their average, projections of 
      points on each dimension and squared correlations                        }
-  \item{   Output for supplementary partial rows }{
-     Masses, chi-squared distances of points to their average, projections of 
-     points on each dimension and squared correlations                        }
   \item{   Output for supplementary columns }{
      Masses, chi-squared distances of points to their average, projections of 
      points on each dimension and squared correlations                        }
+  \item{   Output for supplementary partial rows }{
+     Masses, chi-squared distances of points to their average, projections of 
+     points on each dimension and squared correlations                        
+                  (if multiple = 0)                                           }    
+  \item{   Output for supplementary partial columns }{
+     Masses, chi-squared distances of points to their average, projections of 
+     points on each dimension and squared correlations                        
+                  (if multiple = 1)                                           }    
 }
 \references{
 Goitisolo, B. (2002).
@@ -125,7 +142,7 @@ Zarraga, A. & Goitisolo, B. (2009).
 
 \seealso{
 \code{\link{SimAn}}, 
-\code{\link{SimAnGraph}}.
+\code{\link{plot.SimAn}}.
 }
 \examples{
 data(shoplifting)
@@ -135,8 +152,8 @@ dataSA <- shoplifting
 SimAn.out <- SimAn(data=dataSA, G=2, acg=list(1:9,10:18), weight= 2,
    nameg=c("M", "F"))
 
-### Summary
-SimAnSummary(SimAn.out)
+### Summary without output for columns
+summary(SimAn.out, oac=0)
 }
 \keyword{ multivariate }
 \keyword{ simultaneous analysis}
